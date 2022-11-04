@@ -1,11 +1,34 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import countries from "../countries.json"
+import {useState, useEffect} from "react"
+
+import axios from "axios"
+
 
 function CountryDetails() {
 const{id} = useParams()
 console.log(id)
-  const filteredCountries = countries.filter((eachCountry) => {
+const [countryList, setCountryList] = useState(null)
+const [isFetching, setIsFetching] = useState(true)
+useEffect(()=> {
+    axios.get(" https://ih-countries-api.herokuapp.com/countries")
+    .then((response) => {
+        console.log(response)
+        setCountryList(response.data)
+        setIsFetching(false)
+    
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+},[])
+// actua como ComponentDidUpdate y componentDidMount
+// 4. clausula de guardia para el loading
+if(isFetching === true){
+    return <h3>...buscando</h3>
+    // no hago más hasta que isFetching sea falso
+}
+  const filteredCountries = countryList.filter((eachCountry) => {
     return eachCountry.alpha3Code === id
   })
 
