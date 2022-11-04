@@ -27,15 +27,15 @@ function CountriesList() {
         {countries.map((eachCountry) => {
            
        return (
-        <div key={eachCountry.alpha3Code} style={{display:"flex" ,flexDirection:"row-reverse"}}>
-        <div>
-        <h4 ><Link to={`/country/${eachCountry.alpha3Code}`}>{eachCountry.name.official}</Link> </h4>
-        </div>
-        <div>
+        <div key={eachCountry.alpha3Code} style={{display:"flex" ,flexDirection:"row", justifyContent:"flex-start"}}>
+        <div >
         <img src={` https://flagpedia.net/data/flags/icon/72x54/${eachCountry.alpha2Code.toLowerCase()}.png`} alt="symbol" />
         
-                </div>
-        <hr />
+        </div>
+        <div style={{marginLeft:"25px"}}>
+        <h4 ><Link to={`/country/${eachCountry.alpha3Code}`}>{eachCountry.name.official}</Link> </h4>
+        </div>
+        
         </div>
         )
         })}
